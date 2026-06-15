@@ -29,7 +29,8 @@ Continues from `requirements-architect`, which writes
 2. **Propose MVP scope** — core input/output, core logic, core UI states,
    CTA enable/disable, success state, minimal error handling (defer real
    API integration, full responsive design, animations, tests, multi-page
-   expansion). Then call `AskUserQuestion` (not plain text):
+   expansion). Then you MUST call the `AskUserQuestion` tool (do not print
+   the options as text):
    1. 제안된 MVP 범위로 진행 (Recommended)
    2. 범위 조정 (포함/제외 항목 변경)
 
@@ -37,7 +38,10 @@ Continues from `requirements-architect`, which writes
 
 3. **Break into tasks** — implementation-order units (e.g. 화면 구조 →
    입력 상태 → 핵심 로직 → 검증/에러 → CTA/성공 상태 → 시나리오 확인 →
-   handoff). Each task: 목적 / 구현 내용 / 완료 기준.
+   handoff). Each task: 목적 / 구현 내용 / 완료 기준. Then you MUST call the
+   `AskUserQuestion` tool (do not print the options as text):
+   1. 이 순서로 진행 (Recommended)
+   2. Task 순서/구성 조정
 
 4. **Write the AI implementation request** for each task: 목표 / 입력 /
    출력 / 핵심 로직 / UI 상태 (초기·정상·오류·비활성화·성공) / 제약 (기술
@@ -52,6 +56,13 @@ Continues from `requirements-architect`, which writes
 
 7. **Write the handoff** — always required: 구현 완료 항목 / 주요 의사결정
    / 확인한 시나리오 / 가정한 내용 / 남은 리스크 / 다음 개선 제안.
+
+## Confirmation rule
+
+Any time this skill needs the user to decide between a small set of options
+(MVP scope, task order, or anything similar), call the `AskUserQuestion`
+tool to present clickable choices instead of asking in plain text. Ask one
+question at a time.
 
 ## Output format
 
