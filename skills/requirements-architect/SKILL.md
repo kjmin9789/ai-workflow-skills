@@ -34,8 +34,9 @@ planning-docs/{YYYY-MM-DD}_{slug}/planning.md
    — every requirement should trace back to these.
 
 2. **Propose the page count**, with reasoning, a rough outline per page, and
-   the tradeoff of reducing/expanding it. Then ask the user via
-   `AskUserQuestion` to choose:
+   the tradeoff of reducing/expanding it. Then you MUST call the
+   `AskUserQuestion` tool (do not just print the options as text) with
+   these choices:
    1. 추천 페이지 수로 진행 (Recommended)
    2. 내가 페이지 수를 직접 지정
    3. 페이지 수 제한 없이 IA 기준으로 확장
@@ -45,8 +46,9 @@ planning-docs/{YYYY-MM-DD}_{slug}/planning.md
      page count.
 
 3. **Confirm IA page by page.** For each page, present name, purpose, IA
-   sections, primary action, CTA, and key metric (if relevant), then ask via
-   `AskUserQuestion`:
+   sections, primary action, CTA, and key metric (if relevant), then you
+   MUST call the `AskUserQuestion` tool (do not just print the options as
+   text) with these choices:
    1. 승인 (Recommended)
    2. 수정하고 진행
    3. 이 페이지 제거
