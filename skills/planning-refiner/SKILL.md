@@ -83,10 +83,13 @@ Return the planning document in Korean using the following structure:
 2. 문제 정의 / Problem
 3. 대상 사용자 / Target User
 4. 목표 / Goal
-5. 플로우 옵션 / Flow Options
-6. 선택한 방향 / Selected Flow
-7. 범위 / 제외 범위 / Scope / Out of Scope
-8. 리스크 및 확인 필요 사항 / Risks & Open Questions
+5. User Flow
+6. 범위 / 제외 범위 / Scope / Out of Scope
+7. 리스크 및 확인 필요 사항 / Risks & Open Questions
+
+Flow options are discussed and chosen during the process (step 3–4 above),
+but the final document only shows the selected user flow — not the options
+that were considered.
 
 See [../../templates/planning-final-template.md](../../templates/planning-final-template.md).
 

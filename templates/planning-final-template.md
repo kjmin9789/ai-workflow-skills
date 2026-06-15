@@ -8,10 +8,8 @@
 
 ## 4. 목표 / Goal
 
-## 5. 플로우 옵션 / Flow Options
+## 5. User Flow
 
-## 6. 선택한 방향 / Selected Flow
+## 6. 범위 / 제외 범위 / Scope / Out of Scope
 
-## 7. 범위 / 제외 범위 / Scope / Out of Scope
-
-## 8. 리스크 및 확인 필요 사항 / Risks & Open Questions
+## 7. 리스크 및 확인 필요 사항 / Risks & Open Questions
