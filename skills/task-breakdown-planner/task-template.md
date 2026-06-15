@@ -1,29 +1,71 @@
-# Task Breakdown: [Feature Name]
+# Task Workflow: [Feature Name]
 
-## 1. Summary
-<!-- One or two sentences describing the implementation effort -->
+## 1. 요약
+<!-- 이 기능은 사용자가 ___을 혼동하지 않고 ___을 이해한 상태에서 ___할 수
+있도록 돕는 UI이다. -->
 
-## 2. Workstreams
-<!-- e.g., Backend, Frontend, QA, Analytics -->
+## 2. MVP 범위 / 제외 범위
+
+| 구분 | 항목 |
+|---|---|
+| MVP 포함 | |
+| 제외 (Out of Scope) | |
 
 ## 3. Task List
 <!--
-- Task:
-- Owner:
-- Description:
-- Dependency:
-- Deliverable:
-- Priority:
+### T1. [Task Name]
+- 목적:
+- 구현 내용:
+- 완료 기준:
 -->
 
-## 4. Dependencies
-<!-- Cross-task or cross-team dependencies -->
+## 4. AI 구현 요청
+<!--
+목표:
+입력:
+출력:
+핵심 로직:
+UI 상태: 초기 / 정상 / 오류 / 비활성화 / 성공
+제약: 기술 스택, API 연동 여부, 스타일링 우선순위, 접근성
+-->
 
-## 5. Risks and Blockers
-<!-- What could delay or derail execution -->
+## 5. 시나리오 검증
 
-## 6. Suggested Execution Order
-<!-- Numbered sequence, critical path first -->
+| Scenario | 확인 결과 |
+|---|---|
+| 초기 진입 상태 | |
+| 정상 입력 상태 | |
+| 오류 입력 상태 | |
+| CTA 비활성화 상태 | |
+| CTA 활성화 상태 | |
+| 성공 상태 | |
+| 주요 토글/상태 변경 | |
+
+## 6. Handoff
+
+### 구현 완료 항목
+-
+
+### 주요 의사결정
+-
+
+### 확인한 시나리오
+-
+
+### 구현 중 가정한 내용
+-
+
+### 남은 리스크
+-
+
+### 다음 개선 제안
+-
 
 ## 7. Definition of Done
-<!-- What must be true for this feature to be considered complete -->
+- planning의 핵심 문제를 반영했다.
+- requirements의 핵심 기능 요구사항을 구현했다.
+- MVP 범위와 제외 범위를 구분했다.
+- 주요 상태 케이스를 확인했다.
+- 구현 중 가정한 내용을 기록했다.
+- 남은 리스크를 기록했다.
+- handoff를 작성했다.

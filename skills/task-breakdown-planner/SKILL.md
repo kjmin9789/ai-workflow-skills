@@ -1,87 +1,77 @@
 ---
 name: task-breakdown-planner
-description: Use this skill to decompose product requirements or feature specifications into clear, trackable tasks across design, engineering, QA, analytics, release, and operations workflows.
+description: Use this skill to turn planning.md + requirements.md into an MVP-scoped task breakdown, drive AI-assisted implementation, verify scenarios, and write a handoff. Use when the user wants to start building from a planning/requirements pair.
 ---
 
 # Task Breakdown Planner
 
 ## Purpose
 
-This skill breaks product requirements or feature specifications into
-actionable tasks that can be tracked by product, design, engineering, QA,
-analytics, release, and operations teams.
+Take `planning.md` and `requirements.md`, scope an MVP, break it into
+implementation tasks, drive AI-assisted implementation, verify the key
+scenarios, and end with a handoff. The goal isn't fast code — it's
+correctly interpreting requirements, controlling scope, and clearly
+handing off remaining assumptions/risks.
 
-## When to use
+## Handoff (input)
 
-Use this skill when the user provides:
+Continues from `requirements-architect`, which writes
+`planning-docs/{YYYY-MM-DD}_{slug}/{planning.md, requirements.md}`
+(date/slug are just an example).
 
-- Product requirements (e.g., the output of `requirements-architect`)
-- Feature specifications
-- User stories
-- Acceptance criteria
-- Planning documents
-- Implementation goals
+- Read both files first as the source of truth; if either is missing, ask
+  the user for it.
+- Write output to `task-workflow.md` in the same folder.
 
 ## Process
 
-1. **Understand the requirement or feature scope.**
-   - Read the full requirements document — page count/IA, functional
-     requirements, page-level requirements, scenarios/UI states, and
-     validation/error states — before splitting work. Tasks created from a
-     partial read tend to miss dependencies.
+1. **Read `planning.md`** — problem, target user, goal, flow, scope/out of
+   scope, risks. Restate the feature in one sentence: "이 기능은 사용자가
+   ___을 혼동하지 않고 ___을 이해한 상태에서 ___할 수 있도록 돕는 UI이다."
 
-2. **Identify workstreams.**
-   - Which teams/functions are involved (backend, frontend, QA, analytics,
-     design, release)?
-   - Don't create a workstream with no tasks, and don't force every feature
-     into the same fixed set of workstreams.
+2. **Read `requirements.md`** — page count, IA, FRs, scenarios, validation/
+   error states. Decide what must be built vs. not.
 
-3. **Break the work into actionable tasks.**
-   - Can this task be completed and verified independently?
-   - Is it small enough that "done" is unambiguous?
+3. **Propose MVP scope** — core input/output, core logic, core UI states,
+   CTA enable/disable, success state, minimal error handling. Things like
+   real API integration, full responsive design, animations, design tokens,
+   tests, multi-page expansion can be deferred. Then call `AskUserQuestion`
+   (not plain text) so the user confirms:
+   1. 제안된 MVP 범위로 진행 (Recommended)
+   2. 범위 조정 (포함/제외 항목 변경)
 
-4. **Assign each task to a functional area.**
-   - Does each task have exactly one owner/team — not "backend & frontend"?
+   Excluded items must still be recorded in the final handoff.
 
-5. **Identify dependencies.**
-   - Which tasks block others, and in which direction?
-   - Are cross-team dependencies called out explicitly (not just implied by
-     ordering)?
+4. **Break into tasks** — implementation-order units (e.g. 화면 구조 →
+   입력 상태 → 핵심 로직 → 검증/에러 → CTA/성공 상태 → 시나리오 확인 →
+   handoff), not a fine-grained spec. Each task: 목적 / 구현 내용 / 완료 기준.
 
-6. **Define deliverables.**
-   - Is the deliverable a concrete artifact (a script, a deployed endpoint, a
-     test report) rather than a vague "work on X"?
+5. **Write the AI implementation request** for each task using: 목표 /
+   입력 / 출력 / 핵심 로직 / UI 상태 (초기·정상·오류·비활성화·성공) / 제약
+   (기술 스택, API 연동 여부, 스타일링 우선순위, 접근성).
 
-7. **Highlight risks and blockers.**
-   - What could delay or derail this — high-traffic systems, migrations,
-     external approvals?
+6. **Review implementation output** against: 요구사항 누락 여부, 입력값
+   검증, CTA 조건, 시나리오 동작, 사용자 오해를 줄이는 문구, 범위를 넘는
+   임의 동작 여부, 기록되지 않은 가정 여부.
 
-8. **Suggest a practical execution order.**
-   - Does the order respect the dependencies identified above, with the
-     critical path first?
-   - Use [task-template.md](task-template.md) as
-     the output structure.
+7. **Verify scenarios** from `requirements.md` — at minimum: 초기 진입,
+   정상 입력, 오류 입력, CTA 비활성화/활성화, 성공 상태, 주요 토글/상태
+   변경. Manual confirmation is fine under time pressure.
+
+8. **Write the handoff** — always required; the task isn't done without it.
+   구현 완료 항목 / 주요 의사결정 / 확인한 시나리오 / 구현 중 가정한 내용 /
+   남은 리스크 / 다음 개선 제안.
 
 ## Output format
 
-See [task-template.md](task-template.md) for the
-full structure:
+See [task-template.md](task-template.md):
+요약 → MVP 범위 / 제외 범위 → Task List → AI 구현 요청 → 시나리오 검증 →
+Handoff → Definition of Done
 
-1. Summary
-2. Workstreams
-3. Task List
-4. Dependencies
-5. Risks and Blockers
-6. Suggested Execution Order
-7. Definition of Done
+## Rules
 
-### Task format
-
-```text
-- Task:
-- Owner:
-- Description:
-- Dependency:
-- Deliverable:
-- Priority:
-```
+- Don't implement before reading `planning.md` and `requirements.md`.
+- Don't expand scope beyond requirements; don't build excluded items (e.g.
+  no real API calls if integration is out of scope).
+- Don't finish with only the happy path — error states must be covered.
+- Never end without a handoff.
