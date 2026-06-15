@@ -63,12 +63,12 @@ Use this skill when the user provides:
 
 8. **List dependencies and unresolved questions.**
    - What does engineering need confirmed before they can estimate this work?
-   - Use [templates/requirements-template.md](../../templates/requirements-template.md)
+   - Use [requirements-template.md](requirements-template.md)
      as the output structure.
 
 ## Output format
 
-See [templates/requirements-template.md](../../templates/requirements-template.md)
+See [requirements-template.md](requirements-template.md)
 for the full structure:
 
 1. Overview

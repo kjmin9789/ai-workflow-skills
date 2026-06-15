@@ -37,7 +37,7 @@ explicitly asks.
 5. Summarize the selected flow's scope and what's explicitly excluded.
 6. List risks and anything that still needs confirmation.
 7. Produce one final `planning.md` using
-   [../../templates/planning-final-template.md](../../templates/planning-final-template.md).
+   [planning-final-template.md](planning-final-template.md).
 
 ## Clarification loop
 
@@ -93,7 +93,7 @@ Flow options are discussed and chosen during the process (step 3–4 above),
 but the final document only shows the selected user flow — not the options
 that were considered.
 
-See [../../templates/planning-final-template.md](../../templates/planning-final-template.md).
+See [planning-final-template.md](planning-final-template.md).
 
 ## Final output
 

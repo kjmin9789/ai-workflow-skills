@@ -58,12 +58,12 @@ Use this skill when the user provides:
 8. **Suggest a practical execution order.**
    - Does the order respect the dependencies identified above, with the
      critical path first?
-   - Use [templates/task-template.md](../../templates/task-template.md) as
+   - Use [task-template.md](task-template.md) as
      the output structure.
 
 ## Output format
 
-See [templates/task-template.md](../../templates/task-template.md) for the
+See [task-template.md](task-template.md) for the
 full structure:
 
 1. Summary

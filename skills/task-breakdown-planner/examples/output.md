@@ -1,7 +1,7 @@
 # Output
 
 Task breakdown produced from [input.md](input.md), following
-[../../../templates/task-template.md](../../../templates/task-template.md).
+[../task-template.md](../task-template.md).
 
 ## 1. Summary
 Implementation plan for the per-category notification settings feature,

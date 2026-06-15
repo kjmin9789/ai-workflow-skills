@@ -1,7 +1,7 @@
 # Output
 
 Requirements produced from [input.md](input.md), following
-[../../../templates/requirements-template.md](../../../templates/requirements-template.md).
+[../requirements-template.md](../requirements-template.md).
 
 ## 1. Overview
 Add a per-category notification settings screen, replacing the single global
