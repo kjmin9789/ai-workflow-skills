@@ -20,6 +20,35 @@ Use this skill when the user provides:
 - A feature concept with a defined scope
 - A product plan that needs to be turned into buildable requirements
 
+## Handoff from planning-refiner
+
+This skill continues directly from `planning-refiner`. `planning-refiner`
+produces:
+
+```text
+planning-docs/{YYYY-MM-DD}_{slug}/planning.md
+```
+
+(the date and slug are just an example pattern, e.g.
+`2026-06-15_conditional-order-form`)
+
+- Always look for and read this `planning.md` in the corresponding
+  `planning-docs/{YYYY-MM-DD}_{slug}/` folder before doing anything else.
+  Treat it as the required input and source of truth — do not start from a
+  blank slate or from the user's one-line request alone.
+- If the user references a planning folder/slug but no `planning.md` is
+  found, ask the user for it before proceeding — do not invent the goal,
+  flow, or scope.
+- Write the output requirements document into the same folder, as
+  `requirements.md`:
+
+```text
+planning-docs/{YYYY-MM-DD}_{slug}/requirements.md
+```
+
+so the planning and requirements documents stay paired for the next step
+(`task-breakdown-planner`).
+
 ## Interaction protocol
 
 Do not write the final `requirements.md` immediately. First confirm the
@@ -80,7 +109,10 @@ full requirements document.
 
 ## Process
 
-1. **Understand the goal and scope.**
+1. **Read `planning.md` from the planning-docs folder and understand the
+   goal and scope.**
+   - Locate and read `planning-docs/{YYYY-MM-DD}_{slug}/planning.md` (see
+     "Handoff from planning-refiner" above) — do not skip this.
    - Re-read the goal, selected flow, and scope/out-of-scope before writing
      anything — every requirement should trace back to these.
 
@@ -138,8 +170,10 @@ Return the requirements document using the following structure. See
 
 ## Rules
 
+- Always read `planning-docs/{YYYY-MM-DD}_{slug}/planning.md` first and
+  treat it as the source of truth — this skill is a handoff continuation
+  from `planning-refiner`, not a fresh start.
 - Do not write requirements for only one fixed example.
-- Treat the input planning document as the source of truth.
 - Before writing the final requirements document, ask the user to confirm
   the page count using `AskUserQuestion` (or a numbered list if selectable
   choices aren't supported).
