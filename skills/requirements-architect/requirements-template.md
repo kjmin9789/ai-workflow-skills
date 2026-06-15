@@ -1,37 +1,38 @@
 # Requirements: [Feature Name]
 
-## 1. Overview
+## 1. 요약
 <!-- What is being built, in one or two sentences -->
 
-## 2. Users and Use Cases
-<!-- Concrete scenarios, not just personas -->
+## 2. 페이지 수
 
-## 3. Functional Requirements
+| 총 페이지 수 | 판단 근거 |
+|---|---|
+
+## 3. IA
+
+| Depth | 영역 | 구성 요소 | 목적 |
+|---|---|---|---|
+
+## 4. 기능 요구사항
 <!--
 FR1: ...
 FR2: ...
 -->
 
-## 4. Non-Functional Requirements
-<!--
-NFR1: ...
-NFR2: ...
--->
+## 5. 페이지별 요구사항
 
-## 5. User Stories
-<!-- As a [user], I want [goal] so that [benefit] -->
+| Page ID | Page | Purpose | IA | Primary Action | CTA | Metric |
+|---|---|---|---|---|---|---|
 
-## 6. Acceptance Criteria
-<!-- Given [context], when [action], then [outcome] -->
+## 6. 주요 시나리오 / 상태 케이스
 
-## 7. Edge Cases
-<!-- Boundary conditions, conflicting states, error paths -->
+| Scenario ID | Scenario | User Input / State | Expected UI Response |
+|---|---|---|---|
 
-## 8. Dependencies
-<!-- What other systems/teams must deliver first -->
+## 7. 입력값 검증 / 에러 상태
 
-## 9. Constraints
-<!-- Technical, business, or timeline constraints -->
+| Field / State | Rule | Error Message | System Behavior |
+|---|---|---|---|
 
-## 10. Open Questions
+## 8. 확인 필요 사항
 <!-- What needs to be confirmed before implementation -->

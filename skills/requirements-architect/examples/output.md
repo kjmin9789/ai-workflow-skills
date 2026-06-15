@@ -3,54 +3,59 @@
 Requirements produced from [input.md](input.md), following
 [../requirements-template.md](../requirements-template.md).
 
-## 1. Overview
-Add a per-category notification settings screen, replacing the single global
-push notification toggle.
+## 1. 요약
+계정 설정 내에 "알림 설정" 화면을 추가하여, 사용자가 카테고리별로 알림을
+켜고 끌 수 있도록 한다.
 
-## 2. Users and Use Cases
-- Active user who wants to mute "Likes" but keep "Comments" and "Mentions"
-- New user configuring notification preferences during onboarding
+## 2. 페이지 수
 
-## 3. Functional Requirements
-- FR1: Display a "Notification Settings" screen listing categories: Comments,
-  Likes, Mentions, Marketing
-- FR2: Each category has an independent on/off toggle
-- FR3: Toggling a category immediately persists the preference to the backend
-- FR4: Existing users are migrated with all categories set to "on" to match
-  current behavior
-- FR5: New users see Marketing defaulted to "off"
+| 총 페이지 수 | 판단 근거 |
+|---|---|
+| 1 | 계정 설정 > 알림 설정 1개 화면으로 카테고리별 토글, 저장 상태, 에러 처리까지 모두 다룰 수 있음. 별도 화면 분리가 필요한 추가 설정(빈도/디바이스별 설정)은 Out of Scope이므로 페이지를 늘릴 필요 없음 |
 
-## 4. Non-Functional Requirements
-- NFR1: Preference changes must be reflected in notification delivery within
-  5 minutes
-- NFR2: Settings screen must load in under 500ms on a cached profile
+## 3. IA
 
-## 5. User Stories
-- As an active user, I want to turn off "Likes" notifications so that I
-  receive fewer interruptions while keeping important alerts.
-- As a new user, I want marketing notifications off by default so that I'm
-  not opted into promotional messages without choosing to.
+| Depth | 영역 | 구성 요소 | 목적 |
+|---|---|---|---|
+| 1 | 계정 설정 | 알림 설정 진입 메뉴 | 알림 설정 화면으로 이동 |
+| 2 | 알림 설정 화면 | 카테고리 목록 (Comments, Likes, Mentions, Marketing) | 카테고리별 알림 on/off 제어 |
+| 2 | 알림 설정 화면 | 저장 상태 피드백 영역 (토스트/인라인 에러) | 변경 결과를 사용자에게 알림 |
 
-## 6. Acceptance Criteria
-- Given a user turns off "Likes", when a like event occurs, then no push
-  notification is sent for that event to that user
-- Given an existing user opens the settings screen for the first time, then
-  all categories appear as "on"
-- Given a new user signs up, then "Marketing" appears as "off" by default
+## 4. 기능 요구사항
+- FR1: "알림 설정" 화면은 카테고리 목록(Comments, Likes, Mentions,
+  Marketing)을 표시한다
+- FR2: 각 카테고리는 독립적인 on/off 토글을 가진다
+- FR3: 토글 변경 시 즉시 서버에 반영을 요청한다
+- FR4: 기존 사용자는 모든 카테고리가 "on"으로 마이그레이션된다
+- FR5: 신규 사용자는 Marketing 카테고리가 기본 "off"로 설정된다
+- FR6: 저장 성공 시 확인 토스트를 표시한다
+- FR7: 저장 실패 시 인라인 에러와 재시도 옵션을 표시한다
 
-## 7. Edge Cases
-- User disables all categories — confirm this is allowed (no forced minimum)
-- Notification event maps to multiple categories — define priority/ownership
-- User toggles a setting while offline — handle retry/sync on reconnect
+## 5. 페이지별 요구사항
 
-## 8. Dependencies
-- Backend notification service must support category-based filtering
-- Migration script for existing user preference records
+| Page ID | Page | Purpose | IA | Primary Action | CTA | Metric |
+|---|---|---|---|---|---|---|
+| P1 | 알림 설정 | 카테고리별 알림 수신 여부를 제어 | 계정 설정 > 알림 설정 | 카테고리 토글 변경 | 토글 스위치 | 알림 옵트아웃율 |
 
-## 9. Constraints
-- Must ship within the existing notification settings UI shell (no new nav
-  entry point)
+## 6. 주요 시나리오 / 상태 케이스
 
-## 10. Open Questions
-- Final category list and naming — confirm with backend before implementation
-- Should "Mentions" be a non-disableable category for safety-critical alerts?
+| Scenario ID | Scenario | User Input / State | Expected UI Response |
+|---|---|---|---|
+| S1 | 기존 사용자 최초 진입 | 마이그레이션된 기존 사용자 | 모든 카테고리 토글이 "on"으로 표시됨 |
+| S2 | 신규 사용자 최초 진입 | 신규 가입 사용자 | Marketing 토글만 "off", 나머지는 "on"으로 표시됨 |
+| S3 | 토글 변경 - 성공 | 사용자가 특정 카테고리 토글을 변경, 저장 성공 | 토글이 즉시 변경된 상태로 반영되고 확인 토스트 표시 |
+| S4 | 토글 변경 - 실패 | 사용자가 토글 변경, 저장 요청 실패(네트워크/서버 오류) | 토글은 변경 전 상태로 되돌리고 인라인 에러 + 재시도 버튼 표시 |
+| S5 | 모든 카테고리 off | 사용자가 모든 카테고리를 off로 설정 | 별도 제한 없이 허용, 변경 사항 정상 저장 |
+| S6 | 오프라인 상태에서 토글 변경 | 디바이스가 오프라인 상태 | 토글 변경 시도 시 즉시 에러 표시, 온라인 복귀 후 재시도 가능 |
+
+## 7. 입력값 검증 / 에러 상태
+
+| Field / State | Rule | Error Message | System Behavior |
+|---|---|---|---|
+| 카테고리 토글 저장 | 서버 응답이 5초 내 수신되어야 함 | "설정을 저장하지 못했습니다. 다시 시도해주세요." | 토글을 변경 전 상태로 롤백하고 재시도 버튼 노출 |
+| 카테고리 토글 저장 | 오프라인 상태에서는 저장 요청을 보내지 않음 | "오프라인 상태입니다. 연결 후 다시 시도해주세요." | 토글 변경을 막거나, 변경은 허용하되 온라인 복귀 시 동기화 |
+
+## 8. 확인 필요 사항
+- 최종 카테고리 목록 및 명칭 — 백엔드와 확인 필요
+- "Mentions"처럼 안전 관련 알림은 비활성화를 막아야 하는지 여부
+- 한 이벤트가 여러 카테고리에 매핑될 경우 우선순위/소유권 정의 필요
