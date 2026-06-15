@@ -1,91 +1,107 @@
 ---
 name: planning-refiner
-description: Use this skill to refine early-stage product ideas, vague feature concepts, or planning notes into a structured product planning document that defines the problem, target users, goals, scope, risks, assumptions, and next steps.
+description: Decide the right user flow, define the required pages, clarify each page's purpose, and turn the plan into actionable tasks.
 ---
 
 # Planning Refiner
 
 ## Purpose
 
-This skill transforms a rough product idea, feature concept, or planning note
-into a structured product planning document that a team can align on before
-writing detailed requirements.
+Turn a rough product idea into a concise planning document.
 
-## When to use
+Focus only on:
 
-Use this skill when the user provides:
+```text
+Problem → Flow Options → Selected Flow → Page Count → Pages → Tasks
+```
 
-- A rough product idea
-- A vague feature concept
-- A planning memo
-- Stakeholder notes
-- Early-stage product direction
-- Unstructured business requirements
+Do not produce a general planning doc (no long problem statements, scope,
+risks, or proposed-solution essays). Keep everything short.
+
+## Language
+
+Match the user's language.
+
+For Korean input, write the final `planning.md` primarily in Korean. Use
+Korean section titles with short English labels for structure and agent
+readability (e.g., "대상과 문제 / Target & Problem").
+
+Do not create separate Korean and English versions unless the user
+explicitly asks.
 
 ## Process
 
-1. **Identify the core problem.**
-   - What pain point, complaint, or data point triggered this idea?
-   - Is this a user problem, a business problem, or both?
-   - If the input only describes a solution, work backward to find the
-     problem it's meant to solve.
+1. Understand the target and problem from the rough idea.
+2. If the direction is unclear, ask **one** focused question before
+   producing anything — see "Interview format" below.
+3. Present 2–4 flow options for the user to choose from.
+4. Ask the user to pick a flow if it isn't obvious from context.
+5. Recommend a page count for the selected flow, with a reason.
+6. For each page, define its purpose, user action, CTA, and metric.
+   `Purpose` is the most important column — explain *why* the page exists
+   in one short sentence.
+7. Turn the page plan directly into tasks. Tasks replace "Next Steps" — there
+   is no separate next-steps section.
+8. If real data isn't available, use mock data — clearly labeled as mock,
+   and varied across scenarios (different target users, flow choices, page
+   counts, task breakdowns) rather than presented as if it were real
+   evidence.
+9. Produce one final `planning.md` using
+   [../../templates/planning-final-template.md](../../templates/planning-final-template.md).
 
-2. **Clarify the target user.**
-   - Who specifically experiences this problem — all users, or a segment?
-   - Is there a difference between who experiences the problem and who
-     benefits from the fix?
+## Interview format
 
-3. **Define the product goal.**
-   - What metric or outcome should change if this succeeds?
-   - Is the goal stated as an outcome (e.g., "reduce X"), not as a feature
-     (e.g., "add a button")?
+When the direction is unclear, ask exactly one question at a time, in this
+format:
 
-4. **Separate confirmed facts from assumptions.**
-   - What do we actually know vs. what are we guessing?
-   - Which assumptions are risky enough that they should be validated before
-     committing engineering time?
+```text
+HYPOTHESIS:
+CONFIDENCE:
+Q:
+GUESS:
+```
 
-5. **Organize the proposed solution.**
-   - Does the solution map directly back to the problem statement?
-   - Is there a simpler version that could test the same hypothesis?
+Never ask multiple questions in one turn.
 
-6. **Define scope and out of scope.**
-   - What is the minimum needed to test the hypothesis or solve the core
-     problem?
-   - What adjacent requests came up that should be explicitly excluded for
-     now?
+## Required tables
 
-7. **Identify risks, dependencies, and open questions.**
-   - What could block this technically, legally, or organizationally?
-   - What needs a stakeholder's input before work can proceed?
+**Flow options:**
 
-8. **Produce a structured planning document.**
-   - Could someone unfamiliar with the original note understand the plan on
-     its own?
-   - Use [templates/planning-template.md](../../templates/planning-template.md)
-     as the output structure.
+| Option | Flow | Why | Tradeoff |
+|---|---|---|---|
 
-## Output format
+**Pages:**
 
-See [templates/planning-template.md](../../templates/planning-template.md)
-for the full structure:
+| Step | Page | Purpose | User Action | CTA | Metric |
+|---:|---|---|---|---|---|
 
-1. Summary
-2. Problem Statement
-3. Target User
-4. Product Goal
-5. Proposed Solution
-6. Scope
-7. Out of Scope
-8. Assumptions
-9. Risks
-10. Open Questions
-11. Next Steps
+**Tasks:**
 
-## Example
+| Task ID | Task | Owner | Priority | Acceptance Criteria |
+|---|---|---|---|---|
 
-- [examples/input.md](examples/input.md) — a one-line rough idea
-- [examples/output.md](examples/output.md) — the resulting structured plan
+Tasks must be specific enough to hand off to product, design, engineering,
+data, or QA without further clarification.
 
-The plan's "Next Steps" section hands off directly to
-`requirements-architect`, whose example input is this plan's output.
+## Example (inline, abbreviated)
+
+Input: "알림 설정 화면을 새로 만들고 싶어요."
+
+- Flow Options: (A) 설정 탭 안에 알림 설정 진입점 추가, (B) 온보딩 중 알림
+  설정 선택 단계 추가, (C) 둘 다 — 표로 Why/Tradeoff 정리
+- Selected Flow: (A) 설정 탭 진입
+- Page Count: 1 page — 단일 설정 화면으로 충분
+- Pages: `| 1 | 알림 설정 화면 | 카테고리별 알림 on/off 제어 | 토글 클릭 |
+  (없음) | 카테고리별 opt-out 비율 |`
+- Tasks: `| T1 | 알림 설정 화면 UI 구현 | Frontend | High | 카테고리별
+  토글이 표시되고 즉시 저장됨 |`
+
+## Final output
+
+Create one file:
+
+```text
+planning-docs/{YYYY-MM-DD}_{slug}/planning.md
+```
+
+Do not create separate input/output files unless the user asks.

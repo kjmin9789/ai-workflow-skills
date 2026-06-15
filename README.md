@@ -23,12 +23,10 @@ Idea
 → Task List
 ```
 
-Each skill's `examples/output.md` feeds directly into the next skill's
-`examples/input.md`.
-
-## Examples
-
-Each skill includes an `examples/` folder with sample input and output files.
+`requirements-architect` and `task-breakdown-planner` each include an
+`examples/` folder with sample input and output files; `planning-refiner`
+keeps its example inline in `SKILL.md`. The output of one skill's example
+feeds into the next skill's example input.
 
 ```text
 skills/
