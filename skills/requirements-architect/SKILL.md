@@ -7,157 +7,78 @@ description: Use this skill to transform a planning document (e.g. from planning
 
 ## Purpose
 
-This skill converts a planning document into a structured requirements
-document that design and engineering can build against: information
-architecture, page-level requirements, scenario/state coverage, and
-validation/error handling.
-
-## When to use
-
-Use this skill when the user provides:
-
-- A planning document (e.g., the output of `planning-refiner`)
-- A feature concept with a defined scope
-- A product plan that needs to be turned into buildable requirements
+Convert a planning document into a structured requirements document:
+information architecture, page-level requirements, scenario/state coverage,
+and validation/error handling.
 
 ## Handoff from planning-refiner
 
-This skill continues directly from `planning-refiner`. `planning-refiner`
-produces:
+This skill continues from `planning-refiner`, which writes:
 
 ```text
 planning-docs/{YYYY-MM-DD}_{slug}/planning.md
 ```
 
-(the date and slug are just an example pattern, e.g.
+(date/slug are just an example pattern, e.g.
 `2026-06-15_conditional-order-form`)
 
-- Always look for and read this `planning.md` in the corresponding
-  `planning-docs/{YYYY-MM-DD}_{slug}/` folder before doing anything else.
-  Treat it as the required input and source of truth — do not start from a
-  blank slate or from the user's one-line request alone.
-- If the user references a planning folder/slug but no `planning.md` is
-  found, ask the user for it before proceeding — do not invent the goal,
-  flow, or scope.
-- Write the output requirements document into the same folder, as
-  `requirements.md`:
-
-```text
-planning-docs/{YYYY-MM-DD}_{slug}/requirements.md
-```
-
-so the planning and requirements documents stay paired for the next step
-(`task-breakdown-planner`).
-
-## Interaction protocol
-
-Do not write the final `requirements.md` immediately. First confirm the
-page structure with the user, one decision at a time, using
-`AskUserQuestion` so the user can pick with a click instead of typing.
-
-Skip a confirmation step only if the user has explicitly said to proceed
-automatically.
-
-### Step 1. Page count
-
-After reading the planning document, propose a recommended page count with:
-
-- Recommended page count and reasoning
-- A rough outline of what each page would contain
-- The tradeoff of reducing the page count
-- The tradeoff of expanding the page count
-
-Then ask the user to choose, via `AskUserQuestion`, one of:
-
-1. 추천 페이지 수로 진행 (Recommended)
-2. 내가 페이지 수를 직접 지정
-3. 페이지 수 제한 없이 IA 기준으로 확장
-
-Behavior by choice:
-
-- **1 (recommended count)** — proceed with the recommended count and move to
-  Step 2.
-- **2 (custom count)** — ask the user for the number of pages, then propose
-  an IA that fits that count, then move to Step 2.
-- **3 (no constraint)** — drop the page-count constraint and propose an IA
-  based on clarity, usability, and feature complexity; briefly explain why
-  the expanded IA is better than the minimum.
-
-### Step 2. IA per page
-
-Confirm the IA one page at a time. For each page, present:
-
-- Page name and purpose
-- IA / main sections
-- Primary action
-- CTA
-- Key metric (if relevant)
-
-Then ask the user to choose, via `AskUserQuestion`, one of:
-
-1. 승인 (Recommended)
-2. 수정하고 진행
-3. 이 페이지 제거
-
-Do not move to the next page until the current page's IA is confirmed. Do
-not generate the final `requirements.md` until all pages are confirmed.
-
-### Step 3. Final requirements document
-
-Only after the page count and every page's IA are confirmed, generate the
-full requirements document.
+- Always read this `planning.md` first and treat it as the source of truth
+  — don't start from a blank slate or a one-line request.
+- If no `planning.md` is found, ask the user for it before proceeding.
+- Write the output as `requirements.md` in the same folder, so it stays
+  paired with `planning.md` for `task-breakdown-planner`.
 
 ## Process
 
-1. **Read `planning.md` from the planning-docs folder and understand the
-   goal and scope.**
-   - Locate and read `planning-docs/{YYYY-MM-DD}_{slug}/planning.md` (see
-     "Handoff from planning-refiner" above) — do not skip this.
-   - Re-read the goal, selected flow, and scope/out-of-scope before writing
-     anything — every requirement should trace back to these.
+1. **Read `planning.md`.** Re-read goal, selected flow, and scope/out-of-scope
+   — every requirement should trace back to these.
 
-2. **Propose and confirm the page count.** (Interaction protocol, Step 1)
+2. **Propose the page count**, with reasoning, a rough outline per page, and
+   the tradeoff of reducing/expanding it. Then ask the user via
+   `AskUserQuestion` to choose:
+   1. 추천 페이지 수로 진행 (Recommended)
+   2. 내가 페이지 수를 직접 지정
+   3. 페이지 수 제한 없이 IA 기준으로 확장
 
-3. **Propose and confirm the IA for each page.** (Interaction protocol,
-   Step 2)
-   - Define IA before writing page-level requirements.
-   - Show depth/hierarchy, the components on each level, and their purpose.
+   - If 2: ask for the desired count, then propose an IA fitting it.
+   - If 3: drop the constraint and prioritize the clearest IA over minimum
+     page count.
 
-4. **Define functional requirements.**
-   - Is each requirement specific and testable (not "support notifications"
-     but "user can toggle each category independently")?
-   - Number them (FR1, FR2, ...) for traceability.
+3. **Confirm IA page by page.** For each page, present name, purpose, IA
+   sections, primary action, CTA, and key metric (if relevant), then ask via
+   `AskUserQuestion`:
+   1. 승인 (Recommended)
+   2. 수정하고 진행
+   3. 이 페이지 제거
 
-5. **Define page-level requirements.**
-   - For each page: purpose, where it sits in the IA, primary action, CTA,
-     and the metric it should move (if any).
-   - Each page must have exactly one clear primary action.
+   Don't move to the next page, or generate the final document, until each
+   page is confirmed.
 
-6. **Derive scenarios and UI states.**
-   - For each page/feature, work through:
-     - Does the UI change based on user input or state?
-     - Does the UI change based on user permission/status?
-     - Are there normal / abnormal / empty / completed states?
-     - Are there CTA enable/disable conditions?
-     - Are there error, warning, or success states?
-   - Generalize these from the planning document — don't hardcode a single
-     example.
+4. **Define functional requirements** (FR1, FR2, ...) — specific and
+   testable (not "support notifications" but "user can toggle each category
+   independently").
 
-7. **Define input validation and error states.**
-   - For each input/state that can fail or vary: the rule, the error
-     message, and the resulting system behavior.
+5. **Define page-level requirements** — purpose, IA placement, primary
+   action, CTA, and metric. Exactly one primary action per page.
 
-8. **List open questions.**
-   - What needs to be confirmed before implementation, and what business
-     rules were not specified in the plan?
+6. **Derive scenarios and UI states**, generalized from the planning
+   document (not a single hardcoded example): input/state-driven UI changes,
+   permission/status variants, normal/empty/loading/error/success states,
+   CTA enable/disable conditions.
 
-9. **Generate the final requirements document.** (Interaction protocol,
-   Step 3)
+7. **Define input validation and error states** — rule, error message,
+   system behavior for each input/state that can fail or vary.
+
+8. **List open questions** — anything unresolved goes under 확인 필요 사항;
+   don't invent business rules.
+
+9. **Generate `requirements.md`** — only after steps 2–3 are confirmed
+   (unless the user explicitly said to proceed automatically).
 
 ## Output format
 
-Return the requirements document using the following structure. See
-[requirements-template.md](requirements-template.md) for the full template.
+See [requirements-template.md](requirements-template.md) for the full
+template:
 
 1. 요약
 2. 페이지 수
@@ -170,32 +91,8 @@ Return the requirements document using the following structure. See
 
 ## Rules
 
-- Always read `planning-docs/{YYYY-MM-DD}_{slug}/planning.md` first and
-  treat it as the source of truth — this skill is a handoff continuation
-  from `planning-refiner`, not a fresh start.
-- Do not write requirements for only one fixed example.
-- Before writing the final requirements document, ask the user to confirm
-  the page count using `AskUserQuestion` (or a numbered list if selectable
-  choices aren't supported).
-- The user can approve the recommended page count, specify a different page
-  count, or remove the page count constraint.
-- After page count confirmation, confirm the IA for each page one by one
-  using `AskUserQuestion`.
 - Ask only one confirmation question at a time.
-- Do not create the final `requirements.md` until the page count and every
-  page's IA are confirmed, unless the user explicitly asks to proceed
-  automatically.
-- If the user removes the page count constraint, prioritize the clearest IA
-  over the minimum number of pages.
-- Always explain why the selected page count is sufficient.
-- Always define IA before page-level requirements.
-- Each page must have one clear primary action.
-- Include multiple user scenarios or UI states when the feature behavior
-  changes based on user input, user status, system status, or validation
-  state.
-- Scenario cases should be generalized from the planning document, not
-  hardcoded from a single example.
-- Do not create implementation tasks, task owners, or engineering tickets.
-- Do not invent unresolved business rules. Put them under 확인 필요 사항.
+- Don't create implementation tasks, task owners, or engineering tickets —
+  that's `task-breakdown-planner`'s job.
 
 This output is ready to be passed to `task-breakdown-planner`.
