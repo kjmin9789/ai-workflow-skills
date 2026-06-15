@@ -31,7 +31,9 @@ explicitly asks.
 2. Run the **clarification loop** (see below) until confidence reaches 90%
    and there are no logical gaps — do not produce any output before this.
 3. Present 2–4 flow options for the user to choose from.
-4. Ask the user to pick a flow if it isn't obvious from context.
+4. If it isn't obvious from context, ask the user to pick a flow using the
+   `AskUserQuestion` tool (one option per flow, recommended one first with
+   "(Recommended)", description summarizing the flow).
 5. Summarize the selected flow's scope and what's explicitly excluded.
 6. List risks and anything that still needs confirmation.
 7. Produce one final `planning.md` using
@@ -57,29 +59,21 @@ gap remains unresolved.
 
 ## Interview format
 
-While in the clarification loop, ask exactly one question at a time, in this
-format:
+While in the clarification loop, ask exactly one question at a time.
 
-```text
-HYPOTHESIS:
-CONFIDENCE:
-Q:
-OPTIONS:
-  A) ...
-  B) ...
-  C) ... (Recommended)
-GUESS:
-```
+First, briefly state your current `HYPOTHESIS` and `CONFIDENCE` (0–100%) as a
+short text line so the user can follow your reasoning.
 
-- `HYPOTHESIS`: current best understanding of the goal/target/problem
-- `CONFIDENCE`: current confidence (0–100%) in that hypothesis
-- `Q`: the single question that most reduces uncertainty
-- `OPTIONS`: 2–4 concrete choices the user can pick from instead of typing a
-  free-form answer. Mark the one you'd recommend with "(Recommended)". Only
-  include this field when the question has a reasonably small set of
-  plausible answers.
-- `GUESS`: your best guess at the answer (usually the recommended option), so
-  the user can simply confirm or correct it
+Then, if the question has a reasonably small set of plausible answers, use
+the `AskUserQuestion` tool to ask it — this renders a real selectable UI
+instead of plain text:
+
+- Provide 2–4 concrete options. Put your recommended choice first and add
+  "(Recommended)" to its label.
+- Use the option `description` field to give your best-guess reasoning, so
+  the user can simply confirm or correct it.
+- If the question doesn't fit a small set of options (e.g. it needs a
+  free-form answer), ask it as plain text instead.
 
 Never ask multiple questions in one turn.
 
