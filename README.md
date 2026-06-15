@@ -17,10 +17,28 @@ feeding the next skill's input.
 
 ## Worked example
 
-All three SKILL.md files share a single running example — **"in-app
-notification settings improvement"** — so you can see how a one-line idea
-turns into a plan, then into requirements, then into a task list, with each
-skill's output becoming the next skill's input.
+Each skill's `examples/` folder contains a real `input.md` and `output.md`
+for the same running example — **"in-app notification settings
+improvement"** — so you can see how a one-line idea turns into a plan, then
+into requirements, then into a task list, with each skill's output becoming
+the next skill's input:
+
+```text
+planning-refiner/examples/output.md
+  -> requirements-architect/examples/input.md
+       -> requirements-architect/examples/output.md
+            -> task-breakdown-planner/examples/input.md
+                 -> task-breakdown-planner/examples/output.md
+```
+
+## Templates
+
+The `templates/` folder contains the blank output structure used by each
+skill, so they can also be filled in manually without an AI:
+
+- [templates/planning-template.md](templates/planning-template.md)
+- [templates/requirements-template.md](templates/requirements-template.md)
+- [templates/task-template.md](templates/task-template.md)
 
 ## Download
 
@@ -35,11 +53,24 @@ ai-workflow-skills/
 ├── README.md
 ├── skills/
 │   ├── planning-refiner/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── examples/
+│   │       ├── input.md
+│   │       └── output.md
 │   ├── requirements-architect/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── examples/
+│   │       ├── input.md
+│   │       └── output.md
 │   └── task-breakdown-planner/
-│       └── SKILL.md
+│       ├── SKILL.md
+│       └── examples/
+│           ├── input.md
+│           └── output.md
+├── templates/
+│   ├── planning-template.md
+│   ├── requirements-template.md
+│   └── task-template.md
 └── LICENSE
 ```
 

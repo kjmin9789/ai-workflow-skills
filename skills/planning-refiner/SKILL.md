@@ -24,16 +24,51 @@ Use this skill when the user provides:
 
 ## Process
 
-1. Identify the core problem.
-2. Clarify the target user.
-3. Define the product goal.
-4. Separate confirmed facts from assumptions.
-5. Organize the proposed solution.
-6. Define scope and out of scope.
-7. Identify risks, dependencies, and open questions.
-8. Produce a structured planning document.
+1. **Identify the core problem.**
+   - What pain point, complaint, or data point triggered this idea?
+   - Is this a user problem, a business problem, or both?
+   - If the input only describes a solution, work backward to find the
+     problem it's meant to solve.
+
+2. **Clarify the target user.**
+   - Who specifically experiences this problem — all users, or a segment?
+   - Is there a difference between who experiences the problem and who
+     benefits from the fix?
+
+3. **Define the product goal.**
+   - What metric or outcome should change if this succeeds?
+   - Is the goal stated as an outcome (e.g., "reduce X"), not as a feature
+     (e.g., "add a button")?
+
+4. **Separate confirmed facts from assumptions.**
+   - What do we actually know vs. what are we guessing?
+   - Which assumptions are risky enough that they should be validated before
+     committing engineering time?
+
+5. **Organize the proposed solution.**
+   - Does the solution map directly back to the problem statement?
+   - Is there a simpler version that could test the same hypothesis?
+
+6. **Define scope and out of scope.**
+   - What is the minimum needed to test the hypothesis or solve the core
+     problem?
+   - What adjacent requests came up that should be explicitly excluded for
+     now?
+
+7. **Identify risks, dependencies, and open questions.**
+   - What could block this technically, legally, or organizationally?
+   - What needs a stakeholder's input before work can proceed?
+
+8. **Produce a structured planning document.**
+   - Could someone unfamiliar with the original note understand the plan on
+     its own?
+   - Use [templates/planning-template.md](../../templates/planning-template.md)
+     as the output structure.
 
 ## Output format
+
+See [templates/planning-template.md](../../templates/planning-template.md)
+for the full structure:
 
 1. Summary
 2. Problem Statement
@@ -49,54 +84,8 @@ Use this skill when the user provides:
 
 ## Example
 
-### Input (rough idea)
+- [examples/input.md](examples/input.md) — a one-line rough idea
+- [examples/output.md](examples/output.md) — the resulting structured plan
 
-> "유저들이 알림이 너무 많이 온다는 불만이 많아요. 알림 설정을 더 세분화해서
-> 원하는 알림만 받을 수 있게 하면 좋을 것 같아요."
-
-### Output (structured plan, abbreviated)
-
-**1. Summary**
-Replace the current single on/off notification toggle with per-category
-notification settings so users can reduce notification fatigue.
-
-**2. Problem Statement**
-Users are receiving too many notifications and have no way to turn off
-specific types, leading to complaints and increased app uninstalls.
-
-**3. Target User**
-Active users who have notifications enabled but mute the app at the OS level
-due to volume.
-
-**4. Product Goal**
-Reduce notification opt-out rate by giving users granular control over
-notification categories.
-
-**5. Proposed Solution**
-Add a "Notification Settings" screen with per-category toggles (e.g.,
-comments, likes, mentions, marketing) instead of a single global switch.
-
-**6. Scope**
-- New notification settings screen
-- Per-category toggle for push notifications
-- Default values for existing users (opt-in to all, matching current behavior)
-
-**7. Out of Scope**
-- Email/SMS notification preferences
-- Notification scheduling (quiet hours)
-
-**8. Assumptions**
-- Existing notification events can be mapped to a fixed set of categories
-- Backend can filter notification sends by category per user
-
-**9. Risks**
-- Backend notification service may not support per-category filtering today
-- Migration of existing user preferences needs a safe default
-
-**10. Open Questions**
-- How many categories should we launch with?
-- Should marketing notifications default to off for new users (compliance)?
-
-**11. Next Steps**
-- Pass this plan to `requirements-architect` to define detailed requirements
-- Confirm category list with backend team
+The plan's "Next Steps" section hands off directly to
+`requirements-architect`, whose example input is this plan's output.

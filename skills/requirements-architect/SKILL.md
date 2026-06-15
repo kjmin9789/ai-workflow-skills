@@ -24,16 +24,52 @@ Use this skill when the user provides:
 
 ## Process
 
-1. Understand the product objective.
-2. Identify users and use cases.
-3. Define functional requirements.
-4. Define non-functional requirements.
-5. Write user stories when useful.
-6. Add acceptance criteria.
-7. Identify edge cases and constraints.
-8. List dependencies and unresolved questions.
+1. **Understand the product objective.**
+   - What does the plan say success looks like?
+   - Re-read the goal and scope before writing any requirement — every
+     requirement should trace back to one of them.
+
+2. **Identify users and use cases.**
+   - List concrete scenarios ("a user mutes Likes but keeps Comments"), not
+     just abstract personas.
+   - Does each use case map to at least one requirement below?
+
+3. **Define functional requirements.**
+   - Is each requirement specific and testable (not "support notifications"
+     but "user can toggle each category independently")?
+   - Number them (FR1, FR2, ...) for traceability into tasks and tests.
+
+4. **Define non-functional requirements.**
+   - Which of performance, reliability, security, privacy, or compliance
+     actually applies to this feature?
+   - Avoid boilerplate NFRs that don't reflect a real constraint of this
+     feature.
+
+5. **Write user stories when useful.**
+   - Use "As a [user], I want [goal] so that [benefit]."
+   - Skip this for purely technical/internal requirements where a story adds
+     no clarity.
+
+6. **Add acceptance criteria.**
+   - Use "Given [context], when [action], then [outcome]."
+   - Does every major functional requirement have at least one acceptance
+     criterion, including one negative or edge-case scenario?
+
+7. **Identify edge cases and constraints.**
+   - What happens at the boundaries — zero selected, all selected, offline,
+     conflicting states, migration of existing data?
+   - What constraints (UI shell, existing APIs, timeline) limit the solution
+     space?
+
+8. **List dependencies and unresolved questions.**
+   - What does engineering need confirmed before they can estimate this work?
+   - Use [templates/requirements-template.md](../../templates/requirements-template.md)
+     as the output structure.
 
 ## Output format
+
+See [templates/requirements-template.md](../../templates/requirements-template.md)
+for the full structure:
 
 1. Overview
 2. Users and Use Cases
@@ -48,68 +84,8 @@ Use this skill when the user provides:
 
 ## Example
 
-### Input (plan from `planning-refiner`)
+- [examples/input.md](examples/input.md) — the plan from `planning-refiner`
+- [examples/output.md](examples/output.md) — the resulting requirements
 
-> Goal: Reduce notification opt-out rate by giving users granular control
-> over notification categories. Add a "Notification Settings" screen with
-> per-category toggles (comments, likes, mentions, marketing). Existing
-> users default to all categories on.
-
-### Output (requirements, abbreviated)
-
-**1. Overview**
-Add a per-category notification settings screen, replacing the single global
-push notification toggle.
-
-**2. Users and Use Cases**
-- Active user who wants to mute "likes" but keep "comments" and "mentions"
-- New user configuring notification preferences during onboarding
-
-**3. Functional Requirements**
-- FR1: Display a "Notification Settings" screen listing categories: Comments,
-  Likes, Mentions, Marketing
-- FR2: Each category has an independent on/off toggle
-- FR3: Toggling a category immediately persists the preference to the backend
-- FR4: Existing users are migrated with all categories set to "on" to match
-  current behavior
-- FR5: New users see Marketing defaulted to "off"
-
-**4. Non-Functional Requirements**
-- NFR1: Preference changes must be reflected in notification delivery within
-  5 minutes
-- NFR2: Settings screen must load in under 500ms on a cached profile
-
-**5. User Stories**
-- As an active user, I want to turn off "Likes" notifications so that I
-  receive fewer interruptions while keeping important alerts.
-- As a new user, I want marketing notifications off by default so that I'm
-  not opted into promotional messages without choosing to.
-
-**6. Acceptance Criteria**
-- Given a user turns off "Likes", when a like event occurs, then no push
-  notification is sent for that event to that user
-- Given an existing user opens the settings screen for the first time, then
-  all categories appear as "on"
-- Given a new user signs up, then "Marketing" appears as "off" by default
-
-**7. Edge Cases**
-- User disables all categories — confirm this is allowed (no forced minimum)
-- Notification event maps to multiple categories — define priority/ownership
-- User toggles a setting while offline — handle retry/sync on reconnect
-
-**8. Dependencies**
-- Backend notification service must support category-based filtering
-- Migration script for existing user preference records
-
-**9. Constraints**
-- Must ship within the existing notification settings UI shell (no new nav
-  entry point)
-
-**10. Open Questions**
-- Final category list and naming — confirm with backend before implementation
-- Should "Mentions" be a non-disableable category for safety-critical alerts?
-
----
-
-This output is ready to be passed to `task-breakdown-planner` to generate a
-trackable task list.
+This output is ready to be passed to `task-breakdown-planner`, whose example
+input is these requirements.
