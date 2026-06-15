@@ -20,19 +20,74 @@ Use this skill when the user provides:
 - A feature concept with a defined scope
 - A product plan that needs to be turned into buildable requirements
 
+## Interaction protocol
+
+Do not write the final `requirements.md` immediately. First confirm the
+page structure with the user, one decision at a time, using
+`AskUserQuestion` so the user can pick with a click instead of typing.
+
+Skip a confirmation step only if the user has explicitly said to proceed
+automatically.
+
+### Step 1. Page count
+
+After reading the planning document, propose a recommended page count with:
+
+- Recommended page count and reasoning
+- A rough outline of what each page would contain
+- The tradeoff of reducing the page count
+- The tradeoff of expanding the page count
+
+Then ask the user to choose, via `AskUserQuestion`, one of:
+
+1. 추천 페이지 수로 진행 (Recommended)
+2. 내가 페이지 수를 직접 지정
+3. 페이지 수 제한 없이 IA 기준으로 확장
+
+Behavior by choice:
+
+- **1 (recommended count)** — proceed with the recommended count and move to
+  Step 2.
+- **2 (custom count)** — ask the user for the number of pages, then propose
+  an IA that fits that count, then move to Step 2.
+- **3 (no constraint)** — drop the page-count constraint and propose an IA
+  based on clarity, usability, and feature complexity; briefly explain why
+  the expanded IA is better than the minimum.
+
+### Step 2. IA per page
+
+Confirm the IA one page at a time. For each page, present:
+
+- Page name and purpose
+- IA / main sections
+- Primary action
+- CTA
+- Key metric (if relevant)
+
+Then ask the user to choose, via `AskUserQuestion`, one of:
+
+1. 승인 (Recommended)
+2. 수정하고 진행
+3. 이 페이지 제거
+
+Do not move to the next page until the current page's IA is confirmed. Do
+not generate the final `requirements.md` until all pages are confirmed.
+
+### Step 3. Final requirements document
+
+Only after the page count and every page's IA are confirmed, generate the
+full requirements document.
+
 ## Process
 
 1. **Understand the goal and scope.**
    - Re-read the goal, selected flow, and scope/out-of-scope before writing
      anything — every requirement should trace back to these.
 
-2. **Decide the page count.**
-   - What is the minimum number of pages/screens needed to deliver the
-     scope?
-   - State the reasoning — why this count is sufficient and not more or
-     fewer.
+2. **Propose and confirm the page count.** (Interaction protocol, Step 1)
 
-3. **Structure the IA (Information Architecture).**
+3. **Propose and confirm the IA for each page.** (Interaction protocol,
+   Step 2)
    - Define IA before writing page-level requirements.
    - Show depth/hierarchy, the components on each level, and their purpose.
 
@@ -64,6 +119,9 @@ Use this skill when the user provides:
    - What needs to be confirmed before implementation, and what business
      rules were not specified in the plan?
 
+9. **Generate the final requirements document.** (Interaction protocol,
+   Step 3)
+
 ## Output format
 
 Return the requirements document using the following structure. See
@@ -82,7 +140,19 @@ Return the requirements document using the following structure. See
 
 - Do not write requirements for only one fixed example.
 - Treat the input planning document as the source of truth.
-- Always decide and state the minimum required page count.
+- Before writing the final requirements document, ask the user to confirm
+  the page count using `AskUserQuestion` (or a numbered list if selectable
+  choices aren't supported).
+- The user can approve the recommended page count, specify a different page
+  count, or remove the page count constraint.
+- After page count confirmation, confirm the IA for each page one by one
+  using `AskUserQuestion`.
+- Ask only one confirmation question at a time.
+- Do not create the final `requirements.md` until the page count and every
+  page's IA are confirmed, unless the user explicitly asks to proceed
+  automatically.
+- If the user removes the page count constraint, prioritize the clearest IA
+  over the minimum number of pages.
 - Always explain why the selected page count is sufficient.
 - Always define IA before page-level requirements.
 - Each page must have one clear primary action.
