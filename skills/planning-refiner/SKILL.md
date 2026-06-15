@@ -1,6 +1,6 @@
 ---
 name: planning-refiner
-description: Decide the right user flow, define the required pages, clarify each page's purpose, and turn the plan into actionable tasks.
+description: Clarify a rough product idea through targeted questions, decide the right user flow, and turn it into a concise planning document.
 ---
 
 # Planning Refiner
@@ -12,19 +12,15 @@ Turn a rough product idea into a concise planning document.
 Focus only on:
 
 ```text
-Problem → Flow Options → Selected Flow → Page Count → Pages → Tasks
+Problem → Flow Options → Selected Flow → Scope → Risks / Open Questions
 ```
 
-Do not produce a general planning doc (no long problem statements, scope,
-risks, or proposed-solution essays). Keep everything short.
+Do not pad the document with long essays. Keep every section short.
 
 ## Language
 
-Match the user's language.
-
-For Korean input, write the final `planning.md` primarily in Korean. Use
-Korean section titles with short English labels for structure and agent
-readability (e.g., "대상과 문제 / Target & Problem").
+Match the user's language. For Korean input, write the final `planning.md`
+in Korean.
 
 Do not create separate Korean and English versions unless the user
 explicitly asks.
@@ -36,17 +32,9 @@ explicitly asks.
    and there are no logical gaps — do not produce any output before this.
 3. Present 2–4 flow options for the user to choose from.
 4. Ask the user to pick a flow if it isn't obvious from context.
-5. Recommend a page count for the selected flow, with a reason.
-6. For each page, define its purpose, user action, CTA, and metric.
-   `Purpose` is the most important column — explain *why* the page exists
-   in one short sentence.
-7. Turn the page plan directly into tasks. Tasks replace "Next Steps" — there
-   is no separate next-steps section.
-8. If real data isn't available, use mock data — clearly labeled as mock,
-   and varied across scenarios (different target users, flow choices, page
-   counts, task breakdowns) rather than presented as if it were real
-   evidence.
-9. Produce one final `planning.md` using
+5. Summarize the selected flow's scope and what's explicitly excluded.
+6. List risks and anything that still needs confirmation.
+7. Produce one final `planning.md` using
    [../../templates/planning-final-template.md](../../templates/planning-final-template.md).
 
 ## Clarification loop
@@ -64,8 +52,8 @@ clear enough that no part of the plan relies on a logical leap.
 6. Once `CONFIDENCE >= 90%`, restate the final hypothesis in one short line
    for the user to confirm, then proceed to flow options.
 
-Never skip ahead to flow options, pages, or tasks while confidence is below
-90% or a logical gap remains unresolved.
+Never skip ahead to flow options while confidence is below 90% or a logical
+gap remains unresolved.
 
 ## Interview format
 
@@ -87,38 +75,20 @@ GUESS:
 
 Never ask multiple questions in one turn.
 
-## Required tables
+## Output format
 
-**Flow options:**
+Return the planning document in Korean using the following structure:
 
-| Option | Flow | Why | Tradeoff |
-|---|---|---|---|
+1. 요약
+2. 문제 정의
+3. 대상 사용자
+4. 목표
+5. 플로우 옵션
+6. 선택한 방향
+7. 범위 / 제외 범위
+8. 리스크 및 확인 필요 사항
 
-**Pages:**
-
-| Step | Page | Purpose | User Action | CTA | Metric |
-|---:|---|---|---|---|---|
-
-**Tasks:**
-
-| Task ID | Task | Owner | Priority | Acceptance Criteria |
-|---|---|---|---|---|
-
-Tasks must be specific enough to hand off to product, design, engineering,
-data, or QA without further clarification.
-
-## Example (inline, abbreviated)
-
-Input: "알림 설정 화면을 새로 만들고 싶어요."
-
-- Flow Options: (A) 설정 탭 안에 알림 설정 진입점 추가, (B) 온보딩 중 알림
-  설정 선택 단계 추가, (C) 둘 다 — 표로 Why/Tradeoff 정리
-- Selected Flow: (A) 설정 탭 진입
-- Page Count: 1 page — 단일 설정 화면으로 충분
-- Pages: `| 1 | 알림 설정 화면 | 카테고리별 알림 on/off 제어 | 토글 클릭 |
-  (없음) | 카테고리별 opt-out 비율 |`
-- Tasks: `| T1 | 알림 설정 화면 UI 구현 | Frontend | High | 카테고리별
-  토글이 표시되고 즉시 저장됨 |`
+See [../../templates/planning-final-template.md](../../templates/planning-final-template.md).
 
 ## Final output
 

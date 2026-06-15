@@ -1,31 +1,17 @@
 # 기획 정리 문서
 
-## 1. 요약 / Summary
+## 1. 요약
 
-## 2. 대상과 문제 / Target & Problem
+## 2. 문제 정의
 
-## 3. 만들 플로우 선택지 / Flow Options
+## 3. 대상 사용자
 
-| Option | Flow | Why | Tradeoff |
-|---|---|---|---|
+## 4. 목표
 
-## 4. 선택된 플로우 / Selected Flow
+## 5. 플로우 옵션
 
-## 5. 페이지 수 / Page Count
+## 6. 선택한 방향
 
-```text
-Recommended page count:
-Reason:
-```
+## 7. 범위 / 제외 범위
 
-## 6. 페이지 구성 / Pages
-
-| Step | Page | Purpose | User Action | CTA | Metric |
-|---:|---|---|---|---|---|
-
-## 7. 실행 Task / Tasks
-
-| Task ID | Task | Owner | Priority | Acceptance Criteria |
-|---|---|---|---|---|
-
-## 8. 남은 질문 / Open Questions
+## 8. 리스크 및 확인 필요 사항
