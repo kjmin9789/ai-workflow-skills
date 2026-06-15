@@ -25,9 +25,10 @@ Use this skill when the user provides:
 ## Process
 
 1. **Understand the requirement or feature scope.**
-   - Read all functional and non-functional requirements and acceptance
-     criteria before splitting work — tasks created from a partial read
-     tend to miss dependencies.
+   - Read the full requirements document — page count/IA, functional
+     requirements, page-level requirements, scenarios/UI states, and
+     validation/error states — before splitting work. Tasks created from a
+     partial read tend to miss dependencies.
 
 2. **Identify workstreams.**
    - Which teams/functions are involved (backend, frontend, QA, analytics,
@@ -84,9 +85,3 @@ full structure:
 - Deliverable:
 - Priority:
 ```
-
-## Example
-
-- [examples/input.md](examples/input.md) — the requirements from
-  `requirements-architect`
-- [examples/output.md](examples/output.md) — the resulting task breakdown

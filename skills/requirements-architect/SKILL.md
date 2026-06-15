@@ -94,10 +94,4 @@ Return the requirements document using the following structure. See
 - Do not create implementation tasks, task owners, or engineering tickets.
 - Do not invent unresolved business rules. Put them under 확인 필요 사항.
 
-## Example
-
-- [examples/input.md](examples/input.md) — a plan from `planning-refiner`
-- [examples/output.md](examples/output.md) — the resulting requirements
-
-This output is ready to be passed to `task-breakdown-planner`, whose example
-input is these requirements.
+This output is ready to be passed to `task-breakdown-planner`.
