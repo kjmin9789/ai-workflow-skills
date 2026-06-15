@@ -32,8 +32,8 @@ explicitly asks.
 ## Process
 
 1. Understand the target and problem from the rough idea.
-2. If the direction is unclear, ask **one** focused question before
-   producing anything — see "Interview format" below.
+2. Run the **clarification loop** (see below) until confidence reaches 90%
+   and there are no logical gaps — do not produce any output before this.
 3. Present 2–4 flow options for the user to choose from.
 4. Ask the user to pick a flow if it isn't obvious from context.
 5. Recommend a page count for the selected flow, with a reason.
@@ -49,9 +49,27 @@ explicitly asks.
 9. Produce one final `planning.md` using
    [../../templates/planning-final-template.md](../../templates/planning-final-template.md).
 
+## Clarification loop
+
+Before presenting flow options, the goal, target user, and problem must be
+clear enough that no part of the plan relies on a logical leap.
+
+1. Form a hypothesis about the goal, target user, and problem.
+2. Estimate `CONFIDENCE` (0–100%) that this hypothesis is correct and
+   complete enough to plan from.
+3. If `CONFIDENCE < 90%`, ask **exactly one** question that would close the
+   biggest gap — see "Interview format" below.
+4. Update the hypothesis and confidence based on the user's answer.
+5. Repeat steps 1–4 until `CONFIDENCE >= 90%`.
+6. Once `CONFIDENCE >= 90%`, restate the final hypothesis in one short line
+   for the user to confirm, then proceed to flow options.
+
+Never skip ahead to flow options, pages, or tasks while confidence is below
+90% or a logical gap remains unresolved.
+
 ## Interview format
 
-When the direction is unclear, ask exactly one question at a time, in this
+While in the clarification loop, ask exactly one question at a time, in this
 format:
 
 ```text
@@ -60,6 +78,12 @@ CONFIDENCE:
 Q:
 GUESS:
 ```
+
+- `HYPOTHESIS`: current best understanding of the goal/target/problem
+- `CONFIDENCE`: current confidence (0–100%) in that hypothesis
+- `Q`: the single question that most reduces uncertainty
+- `GUESS`: your best guess at the answer, so the user can simply confirm or
+  correct it
 
 Never ask multiple questions in one turn.
 
