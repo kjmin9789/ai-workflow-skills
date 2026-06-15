@@ -64,14 +64,22 @@ format:
 HYPOTHESIS:
 CONFIDENCE:
 Q:
+OPTIONS:
+  A) ...
+  B) ...
+  C) ... (Recommended)
 GUESS:
 ```
 
 - `HYPOTHESIS`: current best understanding of the goal/target/problem
 - `CONFIDENCE`: current confidence (0–100%) in that hypothesis
 - `Q`: the single question that most reduces uncertainty
-- `GUESS`: your best guess at the answer, so the user can simply confirm or
-  correct it
+- `OPTIONS`: 2–4 concrete choices the user can pick from instead of typing a
+  free-form answer. Mark the one you'd recommend with "(Recommended)". Only
+  include this field when the question has a reasonably small set of
+  plausible answers.
+- `GUESS`: your best guess at the answer (usually the recommended option), so
+  the user can simply confirm or correct it
 
 Never ask multiple questions in one turn.
 
