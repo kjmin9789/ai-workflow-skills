@@ -1,8 +1,9 @@
 # AI Workflow Skills
 
-Reusable AI skills for turning product ideas into plans, requirements, and actionable tasks.
+Reusable AI skills for turning product ideas into plans, requirements,
+actionable tasks, and sharper UX decisions.
 
-> 기획 아이디어를 제품 기획서, 요구사항, 실행 태스크로 구조화하는 AI workflow skill 모음입니다.
+> 기획 아이디어를 제품 기획서, 요구사항, 실행 태스크, UX 판단 기준으로 구조화하는 AI workflow skill 모음입니다.
 
 ## Skills
 
@@ -11,6 +12,7 @@ Reusable AI skills for turning product ideas into plans, requirements, and actio
 | `planning-refiner`       | Refines rough product ideas into structured product plans.     | `skills/planning-refiner/SKILL.md`       |
 | `requirements-architect` | Converts product plans into implementation-ready requirements. | `skills/requirements-architect/SKILL.md` |
 | `task-breakdown-planner` | Breaks requirements into clear, trackable tasks.               | `skills/task-breakdown-planner/SKILL.md` |
+| `purchase-psychology-ux` | Applies purchase psychology to UX writing and conversion flows. | `skills/purchase-psychology-ux/SKILL.md` |
 
 ## Workflow
 
@@ -23,6 +25,10 @@ Idea
 → Task List
 ```
 
+`purchase-psychology-ux` can be used alongside the workflow when refining
+pricing pages, CTAs, onboarding, checkout, retention messages, or product
+detail pages.
+
 `requirements-architect` and `task-breakdown-planner` each include an
 `examples/` folder with sample input and output files; `planning-refiner`
 keeps its example inline in `SKILL.md`. The output of one skill's example
@@ -31,6 +37,7 @@ feeds into the next skill's example input.
 ```text
 skills/
 ├── planning-refiner/
+├── purchase-psychology-ux/
 ├── requirements-architect/
 └── task-breakdown-planner/
 ```
