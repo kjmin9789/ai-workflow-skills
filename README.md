@@ -13,8 +13,14 @@ actionable tasks, and sharper UX decisions.
 | `requirements-architect` | Converts product plans into implementation-ready requirements. | `skills/requirements-architect/SKILL.md` |
 | `task-breakdown-planner` | Breaks requirements into clear, trackable tasks.               | `skills/task-breakdown-planner/SKILL.md` |
 | `purchase-psychology-ux` | Applies purchase psychology to UX writing and conversion flows. | `skills/purchase-psychology-ux/SKILL.md` |
+| `notion-task-writer` | Writes Korean task requirements from planning notes, UI annotations, and selectors. | [SKILL.md](skills/notion-task-writer/SKILL.md) |
 
 ## Workflow
+
+`notion-task-writer` is a standalone documentation skill. Use “노션 요구사항 작성할게”
+to turn a change request into a Markdown document with 개요, 적용 범위, 요구사항,
+and 완료 기준. It saves to `request/YYMMDD-태스크명.md` in the chosen project folder;
+it does not publish to Notion unless explicitly requested.
 
 These skills are designed to be used in sequence:
 
@@ -36,6 +42,7 @@ feeds into the next skill's example input.
 
 ```text
 skills/
+├── notion-task-writer/
 ├── planning-refiner/
 ├── purchase-psychology-ux/
 ├── requirements-architect/
